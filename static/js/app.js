@@ -1,7 +1,24 @@
-// function getsample(){
+d3.json("data/samples.json").then((incomingData) =>{
+  var samples = incomingData.names;
+  var select = d3.select("#selDataset");
+  // var select = document.getElementById("selDataset");
+  // console.log(samples);
+
+  for(var i=0; i < samples.length; i++){
+    // var option = document.createElement("option");
+    // option.text = samples[i];
+    // option.value = samples[i];
+    // select.appendChild(option);
+    
+    var option = select.append("option").attr("value", samples[i]).text(samples[i]);
+  }
+});
+
+
+function getsample(index){
   d3.json("data/samples.json").then((incomingData) => {
     var sample_data = incomingData;
-    var samples = sample_data.samples[0];
+    var samples = sample_data.samples[index];
 
     var otu = samples.otu_ids;
     var values = samples.sample_values;
@@ -35,12 +52,24 @@
     }];
     Plotly.newPlot("bubble",bubble_data);
 
-    var metadata = sample_data.metadata[0];
-    var mor = d3.select("#sample-metadata")
+    var metadata = sample_data.metadata[index];
+    var mor = d3.select("#sample-metadata");
+    mor.text("");
     Object.entries(metadata).forEach(([key,value]) =>{
       mor.append("p").text(`${key}: ${value}`);
 
     });
     
   });
-// }
+}
+
+function optionChanged(val){
+  d3.json("data/samples.json").then((incomingData) =>{
+    var samples = incomingData.names;
+    var index = samples.indexOf(val);
+    console.log(index);
+    getsample(index);
+
+  })
+}
+
