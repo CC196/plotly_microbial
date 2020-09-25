@@ -1,4 +1,4 @@
-d3.json("data/samples.json").then((incomingData) =>{
+d3.json("data/samples.json").then(function(incomingData){
   var samples = incomingData.names;
   var select = d3.select("#selDataset");
   // var select = document.getElementById("selDataset");
@@ -16,7 +16,7 @@ d3.json("data/samples.json").then((incomingData) =>{
 
 
 function getsample(index){
-  d3.json("data/samples.json").then((incomingData) => {
+  d3.json("data/samples.json").then(function(incomingData){
     var sample_data = incomingData;
     var samples = sample_data.samples[index];
 
@@ -55,7 +55,7 @@ function getsample(index){
     var metadata = sample_data.metadata[index];
     var mor = d3.select("#sample-metadata");
     mor.text("");
-    Object.entries(metadata).forEach(([key,value]) =>{
+    Object.entries(metadata).forEach(function([key,value]){
       mor.append("p").text(`${key}: ${value}`);
 
     });
@@ -64,7 +64,7 @@ function getsample(index){
 }
 
 function optionChanged(val){
-  d3.json("data/samples.json").then((incomingData) =>{
+  d3.json("data/samples.json").then(function(incomingData){
     var samples = incomingData.names;
     var index = samples.indexOf(val);
     console.log(index);
