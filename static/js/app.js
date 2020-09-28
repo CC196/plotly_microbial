@@ -72,4 +72,6 @@ function optionChanged(val){
 
   })
 }
+// initial
+getsample(0);
 
