@@ -1,3 +1,4 @@
+//get the drop down menu and default page
 d3.json("data/samples.json").then(function(incomingData){
   var samples = incomingData.names;
   var select = d3.select("#selDataset");
@@ -12,12 +13,12 @@ d3.json("data/samples.json").then(function(incomingData){
     
     var option = select.append("option").attr("value", samples[i]).text(samples[i]);
   }
+  //default page
+  getsample(0,incomingData);
 });
 
-
-function getsample(index){
-  d3.json("data/samples.json").then(function(incomingData){
-    var sample_data = incomingData;
+//get the Chart
+function getsample(index,sample_data){
     var samples = sample_data.samples[index];
 
     var otu = samples.otu_ids;
@@ -60,7 +61,6 @@ function getsample(index){
 
     });
     
-  });
 }
 
 function optionChanged(val){
@@ -68,10 +68,8 @@ function optionChanged(val){
     var samples = incomingData.names;
     var index = samples.indexOf(val);
     console.log(index);
-    getsample(index);
+    getsample(index,incomingData);
 
   })
 }
-// initial
-getsample(0);
 
